@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Widget_t {
     QByteArrayData data[13];
-    char stringdata0[233];
+    char stringdata0[239];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -41,7 +41,7 @@ QT_MOC_LITERAL(8, 142, 33), // "on_sendMessagelineEdit_textEd..."
 QT_MOC_LITERAL(9, 176, 4), // "arg1"
 QT_MOC_LITERAL(10, 181, 25), // "checkCustomBaudRatePolicy"
 QT_MOC_LITERAL(11, 207, 3), // "idx"
-QT_MOC_LITERAL(12, 211, 21) // "on_pushButton_clicked"
+QT_MOC_LITERAL(12, 211, 27) // "on_getDevicesButton_clicked"
 
     },
     "Widget\0SwitchSerialPort\0\0fillPortsInfo\0"
@@ -50,7 +50,7 @@ QT_MOC_LITERAL(12, 211, 21) // "on_pushButton_clicked"
     "on_clearSendMessageButton_clicked\0"
     "on_sendMessagelineEdit_textEdited\0"
     "arg1\0checkCustomBaudRatePolicy\0idx\0"
-    "on_pushButton_clicked"
+    "on_getDevicesButton_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -106,7 +106,7 @@ void Widget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 5: _t->on_clearSendMessageButton_clicked(); break;
         case 6: _t->on_sendMessagelineEdit_textEdited((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 7: _t->checkCustomBaudRatePolicy((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 8: _t->on_pushButton_clicked(); break;
+        case 8: _t->on_getDevicesButton_clicked(); break;
         default: ;
         }
     }

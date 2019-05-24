@@ -371,7 +371,7 @@
    <property name="title">
     <string>设备操作</string>
    </property>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="getDevicesButton">
     <property name="geometry">
      <rect>
       <x>20</x>

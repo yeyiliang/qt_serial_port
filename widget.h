@@ -4,7 +4,13 @@
 #include <QWidget>
 #include <QtSerialPort/QSerialPort>
 #include <QIntValidator>
-
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQueryModel>
+#include <QDebug>
+#include <QSqlQuery>
+#include <QSqlRecord>
+#include "fb_decode.h"
 namespace Ui {
     class Widget;
 }
@@ -42,13 +48,15 @@ private:
     Settings currentSettings;
     QSerialPort *serial;
     QIntValidator *intValidator;
-
+    QSqlDatabase database;
+    QSqlQuery sql_query;
     void fillPortsParameters();
     void updateSettings();
     //将16进制的字符串转换成字节序列
     QByteArray HexStringToByteArray(QString HexString);
     //将字节序列转换字符串
     QString ByteArrayToHexString(QByteArray data);
+    FB_decode* fb_decode = NULL;
 
 private slots:
     void SwitchSerialPort();
@@ -65,7 +73,7 @@ private slots:
     void on_sendMessagelineEdit_textEdited(const QString &arg1);
 
     void checkCustomBaudRatePolicy(int idx);
-    void on_pushButton_clicked();
+    void on_getDevicesButton_clicked();
 };
 
 #endif // WIDGET_H

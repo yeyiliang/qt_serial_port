@@ -59,7 +59,7 @@ public:
     QLCDNumber *sendMessagelcdNumber;
     QLabel *label_8;
     QGroupBox *groupBox_4;
-    QPushButton *pushButton;
+    QPushButton *getDevicesButton;
     QTableView *tableView;
 
     void setupUi(QWidget *Widget)
@@ -158,9 +158,9 @@ public:
         groupBox_4 = new QGroupBox(Widget);
         groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
         groupBox_4->setGeometry(QRect(590, 20, 131, 541));
-        pushButton = new QPushButton(groupBox_4);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(20, 40, 91, 23));
+        getDevicesButton = new QPushButton(groupBox_4);
+        getDevicesButton->setObjectName(QStringLiteral("getDevicesButton"));
+        getDevicesButton->setGeometry(QRect(20, 40, 91, 23));
         tableView = new QTableView(Widget);
         tableView->setObjectName(QStringLiteral("tableView"));
         tableView->setGeometry(QRect(10, 130, 571, 221));
@@ -192,7 +192,7 @@ public:
         checkBox->setText(QApplication::translate("Widget", "HEX", 0));
         label_8->setText(QApplication::translate("Widget", "\345\217\221\351\200\201\345\255\227\346\225\260\346\230\276\347\244\272", 0));
         groupBox_4->setTitle(QApplication::translate("Widget", "\350\256\276\345\244\207\346\223\215\344\275\234", 0));
-        pushButton->setText(QApplication::translate("Widget", "\350\216\267\345\217\226\350\256\276\345\244\207\345\210\227\350\241\250", 0));
+        getDevicesButton->setText(QApplication::translate("Widget", "\350\216\267\345\217\226\350\256\276\345\244\207\345\210\227\350\241\250", 0));
     } // retranslateUi
 
 };
