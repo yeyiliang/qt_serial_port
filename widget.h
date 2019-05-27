@@ -11,6 +11,8 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include "fb_decode.h"
+#include <queue>
+#include "types.h"
 namespace Ui {
     class Widget;
 }
@@ -49,7 +51,7 @@ private:
     QSerialPort *serial;
     QIntValidator *intValidator;
     QSqlDatabase database;
-    QSqlQuery sql_query;
+
     void fillPortsParameters();
     void updateSettings();
     //将16进制的字符串转换成字节序列
@@ -57,6 +59,7 @@ private:
     //将字节序列转换字符串
     QString ByteArrayToHexString(QByteArray data);
     FB_decode* fb_decode = NULL;
+    std::queue< DeviceInfo_t > devices;
 
 private slots:
     void SwitchSerialPort();
@@ -74,6 +77,8 @@ private slots:
 
     void checkCustomBaudRatePolicy(int idx);
     void on_getDevicesButton_clicked();
+    void on_pushButton_clicked();
+    void on_pushButton_2_clicked();
 };
 
 #endif // WIDGET_H

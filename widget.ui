@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>738</width>
+    <width>982</width>
     <height>605</height>
    </rect>
   </property>
@@ -362,7 +362,7 @@
   <widget class="QGroupBox" name="groupBox_4">
    <property name="geometry">
     <rect>
-     <x>590</x>
+     <x>830</x>
      <y>20</y>
      <width>131</width>
      <height>541</height>
@@ -384,13 +384,39 @@
      <string>获取设备列表</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>90</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>刷新数据库</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>14</x>
+      <y>160</y>
+      <width>91</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>清除数据库表</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QTableView" name="tableView">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>130</y>
-     <width>571</width>
+     <width>811</width>
      <height>221</height>
     </rect>
    </property>

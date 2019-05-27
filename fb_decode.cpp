@@ -103,7 +103,7 @@ int FB_decode::parase_packet(uint8_t *data, int len)
     }
 }
 
-int FB_decode::decode_device_add(uint8_t *data, int len, FB_decode::DeviceInfo_t *device)
+int FB_decode::decode_device_add(uint8_t *data, int len,DeviceInfo_t *device)
 {
     int pos = 0;
     char tmpstr[50];

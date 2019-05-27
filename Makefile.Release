@@ -64,7 +64,8 @@ DIST          =  widget.h \
 		sqlite.h \
 		fb_cmd.h \
 		fb_decode.h \
-		db_cmd.h main.cpp \
+		db_cmd.h \
+		types.h main.cpp \
 		widget.cpp \
 		fb_encode.cpp \
 		sqlite.cpp \
@@ -237,6 +238,8 @@ release/moc_widget.cpp: D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QWidget \
 		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtSql/qsqlquery.h \
 		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtSql/QSqlRecord \
 		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtSql/qsqlrecord.h \
+		fb_decode.h \
+		types.h \
 		widget.h
 	D:\Qt\Qt5.6.1\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -ID:/Qt/Qt5.6.1/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/MK517232/Desktop/myserial -ID:/Qt/Qt5.6.1/5.6/mingw49_32/include -ID:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets -ID:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui -ID:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtANGLE -ID:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtSerialPort -ID:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtSql -ID:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore widget.h -o release\moc_widget.cpp
 
@@ -384,6 +387,8 @@ release/main.o: main.cpp widget.h \
 		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtSql/qsqlquery.h \
 		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtSql/QSqlRecord \
 		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtSql/qsqlrecord.h \
+		fb_decode.h \
+		types.h \
 		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QApplication \
 		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qapplication.h \
 		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcoreapplication.h \
@@ -517,6 +522,8 @@ release/widget.o: widget.cpp widget.h \
 		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtSql/qsqlquery.h \
 		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtSql/QSqlRecord \
 		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtSql/qsqlrecord.h \
+		fb_decode.h \
+		types.h \
 		ui_widget.h \
 		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QVariant \
 		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QAction \
@@ -818,10 +825,80 @@ release/fb_cmd.o: fb_cmd.cpp fb_cmd.h \
 		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtSql/QSqlQuery \
 		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtSql/qsqlquery.h \
 		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtSql/QSqlRecord \
-		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtSql/qsqlrecord.h
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtSql/qsqlrecord.h \
+		fb_decode.h \
+		types.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\fb_cmd.o fb_cmd.cpp
 
-release/fb_decode.o: fb_decode.cpp fb_decode.h
+release/fb_decode.o: fb_decode.cpp fb_decode.h \
+		types.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QDebug \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qdebug.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qalgorithms.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qglobal.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qconfig.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfeatures.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsystemdetection.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qprocessordetection.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcompilerdetection.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtypeinfo.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtypetraits.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qisenum.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsysinfo.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlogging.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qflags.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasicatomic.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_bootstrap.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qgenericatomic.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_cxx11.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_gcc.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_msvc.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv7.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv6.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv5.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_ia64.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_x86.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_unix.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qglobalstatic.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmutex.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnumeric.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qversiontagging.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qhash.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qchar.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qiterator.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlist.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qrefcount.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qarraydata.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qhashfunctions.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpair.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbytearraylist.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbytearray.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnamespace.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstring.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringbuilder.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringlist.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qregexp.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringmatcher.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmap.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtextstream.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qiodevice.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs_impl.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcoreevent.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qscopedpointer.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmetatype.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvarlengtharray.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcontainerfwd.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject_impl.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlocale.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvariant.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qshareddata.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvector.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpoint.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qset.h \
+		D:/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcontiguouscache.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\fb_decode.o fb_decode.cpp
 
 release/db_cmd.o: db_cmd.cpp 

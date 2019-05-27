@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include "fb_encode.h"
 
+
 Widget::Settings Widget::getsettings() const
 {
     return currentSettings;
@@ -25,6 +26,39 @@ Widget::Widget(QWidget *parent) :
     connect(serial, &QSerialPort::readyRead, this, &Widget::readData);
     connect(ui->baudRateComboBox,  static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
             this, &Widget::checkCustomBaudRatePolicy);
+
+
+    if(QSqlDatabase::contains("qt_sql_default_connection"))
+    {
+        database = QSqlDatabase::database("qt_sql_default_connection");
+    }
+    else
+    {
+        database = QSqlDatabase::addDatabase("QSQLITE");
+        database.setDatabaseName("MyDataBase.db");
+    }
+    if(!database.open())
+    {
+        qDebug() << "Error: Failed to connect database." << database.lastError();
+        return;
+    }
+    QSqlQuery sql_query(database);
+    QString create_sql = "create table devices (\
+                          SNID varchar(30) ,\
+                          NAME varchar(30),\
+                          NETADDR varchar(30) primary key,\
+                          ZONETYPE varchar(30),\
+                          DEVICEID varchar(30),\
+                          ENDPOINT varchar(30),\
+                          IEEE varchar(30));";
+    sql_query.prepare(create_sql);
+    if(!sql_query.exec())
+    {
+         qDebug() << "Error: Fail to create table." << sql_query.lastError();
+    }
+    else{
+         qDebug() << "Table created!";
+    }
 }
 
 Widget::~Widget()
@@ -131,53 +165,29 @@ void Widget::readData()
             ui->textBrowser->append(data);
          }
          fb_decode->decode_device_add((uint8_t*)data.data(),data.size(),fb_decode->device);
+         devices.push(*fb_decode->device);
 
-         QString insert_sql = "insert into student values\
-                               (?, ?, ?, ?, ?, ?, ?)";
-         sql_query.prepare(insert_sql);
+     //QString clear_sql = "delete from student";
+     //sql_query.prepare(clear_sql);
+     //if(!sql_query.exec())
+     //{
+     //    qDebug() << sql_query.lastError();
+     //}
+     //else
+     //{
+     //    qDebug() << "table cleared";
+     //}
 
-//         SNID varchar(30) primary key,\
-//         NAME varchar(30),\
-//         NETADDR varchar(30),\
-//         ZONETYPE varchar(30),\
-//         DEVICEID varchar(30),\
-//         ENDPOINT varchar(30),\
-//         IEEE varchar(30))";
-         QByteArray SNID;
-         SNID.resize(sizeof(fb_decode->device->snid));
-         memcpy(SNID.data(),fb_decode->device->snid,sizeof(fb_decode->device->snid));
-
-         QByteArray ZONETYPE;
-         ZONETYPE.resize(sizeof(fb_decode->device->zonetype));
-         memcpy(ZONETYPE.data(),fb_decode->device->zonetype,sizeof(fb_decode->device->zonetype));
-
-         QByteArray NETADDR;
-         NETADDR.resize(sizeof(fb_decode->device->netAddr));
-         memcpy(NETADDR.data(),fb_decode->device->netAddr,sizeof(fb_decode->device->netAddr));
-
-         QByteArray IEEE;
-         IEEE.resize(sizeof(fb_decode->device->ieee));
-         memcpy(IEEE.data(),fb_decode->device->ieee,sizeof(fb_decode->device->ieee));
-
-         QByteArray DEVTYPE;
-         DEVTYPE.resize(sizeof(fb_decode->device->devtype));
-         memcpy(DEVTYPE.data(),fb_decode->device->devtype,sizeof(fb_decode->device->devtype));
-
-         sql_query.addBindValue(SNID);
-         sql_query.addBindValue(NETADDR);
-         sql_query.addBindValue(ZONETYPE);
-         sql_query.addBindValue(DEVTYPE);
-         sql_query.addBindValue(fb_decode->device->endpoint);
-         sql_query.addBindValue(IEEE);
-         if(!sql_query.exec())
-         {
-             qDebug() << sql_query.lastError();
-         }
-         else
-         {
-             qDebug() << "inserted Wang!";
-         }
-
+     //clear_sql = "delete from deviecs";
+     //sql_query.prepare(clear_sql);
+     //if(!sql_query.exec())
+     //{
+     //    qDebug() << sql_query.lastError();
+     //}
+     //else
+     //{
+     //    qDebug() << "table cleared";
+     //}
      }
      ui->lcdNumber->display(ui->lcdNumber->value() + data.size());
 }
@@ -361,23 +371,84 @@ void Widget::on_getDevicesButton_clicked()
     ui->sendMessagelcdNumber->display(ui->sendMessagelcdNumber->value() + count);
     delete encode_p;
 
-    /*读取数据库*/
-    if(QSqlDatabase::contains("qt_sql_default_connection"))
-    {
-        database = QSqlDatabase::database("qt_sql_default_connection");
-    }
-    else
-    {
-        database = QSqlDatabase::addDatabase("QSQLITE");
-        database.setDatabaseName("MyDataBase.db");
-    }
+    //view->show();
+    //database.close();
+}
 
-    if(!database.open())
+void Widget::on_pushButton_clicked()
+{
+    QSqlQuery sql_query(database);
+    QString insert_sql = "insert into devices values \
+                          (?, ?, ?, ?, ?, ?, ?);";
+    while(!devices.empty())
     {
-        qDebug() << "Error: Failed to connect database." << database.lastError();
-        return;
+        DeviceInfo_t device_temp = devices.front();
+        devices.pop();
+        sql_query.prepare(insert_sql);
+        QByteArray SNID;
+        SNID.resize(sizeof(device_temp.snid));
+        memcpy(SNID.data(),device_temp.snid,sizeof(device_temp.snid));
+
+        QByteArray NAME;
+        NAME.resize(sizeof(device_temp.devicename));
+        memcpy(NAME.data(),device_temp.devicename,sizeof(device_temp.devicename));
+
+        QByteArray NETADDR;
+        NETADDR.resize(sizeof(device_temp.netAddr));
+        memcpy(NETADDR.data(),device_temp.netAddr,sizeof(device_temp.netAddr));
+
+        QByteArray ZONETYPE;
+        ZONETYPE.resize(sizeof(device_temp.zonetype));
+        memcpy(ZONETYPE.data(),device_temp.zonetype,sizeof(device_temp.zonetype));
+
+        QByteArray DEVTYPE;
+        DEVTYPE.resize(sizeof(device_temp.devtype));
+        memcpy(DEVTYPE.data(),device_temp.devtype,sizeof(device_temp.devtype));
+
+        QByteArray IEEE;
+        IEEE.resize(sizeof(device_temp.ieee));
+        memcpy(IEEE.data(),device_temp.ieee,sizeof(device_temp.ieee));
+
+        QString string_temp;
+        sql_query.addBindValue(string_temp.prepend(SNID));//SNID
+        string_temp.clear();
+        sql_query.addBindValue(string_temp.prepend(NAME) );
+        string_temp.clear();
+        sql_query.addBindValue(string_temp.prepend(NETADDR));//NETADDR
+        string_temp.clear();
+        sql_query.addBindValue(string_temp.prepend(ZONETYPE));//ZONETYPE
+        string_temp.clear();
+        sql_query.addBindValue(string_temp.prepend(DEVTYPE));
+        string_temp.clear();
+        sql_query.addBindValue(device_temp.endpoint);
+        string_temp.clear();
+        sql_query.addBindValue(string_temp.prepend(IEEE));
+        string_temp.clear();
+        if(!sql_query.exec())
+        {
+            qDebug() << sql_query.lastError();
+        }
+        else
+        {
+            qDebug() << "inserted data";
+        }
+
+        QSqlQueryModel *model = new QSqlQueryModel;
+        model->setQuery("SELECT * FROM DEVICES", database);	//从给定的数据库db执行sql操作, db需预先制定并打开
+
+        int column = model->columnCount();	//获取列数
+        int row = model->rowCount();		//获取行数
+        qDebug() << "column:" << column;
+        qDebug() << "row:" << row;
+        ui->tableView->setModel(model);
     }
-    QString clear_sql = "delete from student";
+    //delete model;
+}
+
+void Widget::on_pushButton_2_clicked()
+{
+    QSqlQuery sql_query(database);
+    QString clear_sql = "delete from devices;";
     sql_query.prepare(clear_sql);
     if(!sql_query.exec())
     {
@@ -387,75 +458,6 @@ void Widget::on_getDevicesButton_clicked()
     {
         qDebug() << "table cleared";
     }
-
-    clear_sql = "delete from deviecs";
-    sql_query.prepare(clear_sql);
-    if(!sql_query.exec())
-    {
-        qDebug() << sql_query.lastError();
-    }
-    else
-    {
-        qDebug() << "table cleared";
-    }
-
-    QString create_sql = "create table devices (\
-                          SNID varchar(30) primary key,\
-                          NAME varchar(30),\
-                          NETADDR varchar(30),\
-                          ZONETYPE varchar(30),\
-                          DEVICEID varchar(30),\
-                          ENDPOINT varchar(30),\
-                          IEEE varchar(30))";
-    sql_query.prepare(create_sql);
-    if(!sql_query.exec())
-    {
-         qDebug() << "Error: Fail to create table." << sql_query.lastError();
-    }
-    else{
-         qDebug() << "Table created!";
-    }
-
-//    QString drop_sql = "drop table student";
-//    sql_query.prepare(drop_sql);
-//    if(!sql_query.exec())
-//    {
-//         qDebug() << "Error: Fail to check db." << sql_query.lastError();
-//    }
-
-
-//    QString select_all_sql = "select * from devices";
-//    sql_query.prepare(select_all_sql);
-//    if(!sql_query.exec())
-//    {
-//        qDebug()<<sql_query.lastError();
-//    }
-//    else
-//    {
-//        while(sql_query.next())
-//        {
-//            int id = sql_query.value(0).toInt();
-//            QString name = sql_query.value(1).toString();
-//            int age = sql_query.value(2).toInt();
-//            qDebug()<<QString("id:%1    name:%2    age:%3").arg(id).arg(name).arg(age);
-//        }
-//    }
-
-//    QString select_max_sql = "select max(id) from student";
-//    int max_id = 0;
-//    sql_query.prepare(select_max_sql);
-//    if(!sql_query.exec())
-//    {
-//        qDebug() << sql_query.lastError();
-//    }
-//    else
-//    {
-//        while(sql_query.next())
-//        {
-//            max_id = sql_query.value(0).toInt();
-//            qDebug() << QString("max id:%1").arg(max_id);
-//        }
-//    }
 
     QSqlQueryModel *model = new QSqlQueryModel;
     model->setQuery("SELECT * FROM DEVICES", database);	//从给定的数据库db执行sql操作, db需预先制定并打开
@@ -465,6 +467,5 @@ void Widget::on_getDevicesButton_clicked()
     qDebug() << "column:" << column;
     qDebug() << "row:" << row;
     ui->tableView->setModel(model);
-    //view->show();
-    //database.close();
+    //delete model;
 }

@@ -60,13 +60,15 @@ public:
     QLabel *label_8;
     QGroupBox *groupBox_4;
     QPushButton *getDevicesButton;
+    QPushButton *pushButton;
+    QPushButton *pushButton_2;
     QTableView *tableView;
 
     void setupUi(QWidget *Widget)
     {
         if (Widget->objectName().isEmpty())
             Widget->setObjectName(QStringLiteral("Widget"));
-        Widget->resize(738, 605);
+        Widget->resize(982, 605);
         groupBox = new QGroupBox(Widget);
         groupBox->setObjectName(QStringLiteral("groupBox"));
         groupBox->setGeometry(QRect(10, 20, 571, 101));
@@ -157,13 +159,19 @@ public:
         label_8->setGeometry(QRect(183, 50, 81, 21));
         groupBox_4 = new QGroupBox(Widget);
         groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
-        groupBox_4->setGeometry(QRect(590, 20, 131, 541));
+        groupBox_4->setGeometry(QRect(830, 20, 131, 541));
         getDevicesButton = new QPushButton(groupBox_4);
         getDevicesButton->setObjectName(QStringLiteral("getDevicesButton"));
         getDevicesButton->setGeometry(QRect(20, 40, 91, 23));
+        pushButton = new QPushButton(groupBox_4);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setGeometry(QRect(30, 90, 75, 23));
+        pushButton_2 = new QPushButton(groupBox_4);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        pushButton_2->setGeometry(QRect(14, 160, 91, 23));
         tableView = new QTableView(Widget);
         tableView->setObjectName(QStringLiteral("tableView"));
-        tableView->setGeometry(QRect(10, 130, 571, 221));
+        tableView->setGeometry(QRect(10, 130, 811, 221));
 
         retranslateUi(Widget);
 
@@ -193,6 +201,8 @@ public:
         label_8->setText(QApplication::translate("Widget", "\345\217\221\351\200\201\345\255\227\346\225\260\346\230\276\347\244\272", 0));
         groupBox_4->setTitle(QApplication::translate("Widget", "\350\256\276\345\244\207\346\223\215\344\275\234", 0));
         getDevicesButton->setText(QApplication::translate("Widget", "\350\216\267\345\217\226\350\256\276\345\244\207\345\210\227\350\241\250", 0));
+        pushButton->setText(QApplication::translate("Widget", "\345\210\267\346\226\260\346\225\260\346\215\256\345\272\223", 0));
+        pushButton_2->setText(QApplication::translate("Widget", "\346\270\205\351\231\244\346\225\260\346\215\256\345\272\223\350\241\250", 0));
     } // retranslateUi
 
 };

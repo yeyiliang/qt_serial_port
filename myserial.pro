@@ -26,6 +26,7 @@ HEADERS  += widget.h \
     sqlite.h \
     fb_cmd.h \
     fb_decode.h \
-    db_cmd.h
+    db_cmd.h \
+    types.h
 
 FORMS    += widget.ui
